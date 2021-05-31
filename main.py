@@ -25,6 +25,6 @@ while run:
     
     for lettre in lettres_position.keys():
         l = arialfont.render(lettre,False,(127,255,0))
-        fenetre.blit(l,lettres_position[l])
+        fenetre.blit(l,lettres_position[lettre])
     pygame.display.flip()
 pygame.quit()
