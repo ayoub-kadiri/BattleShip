@@ -1,10 +1,11 @@
 from board import Board
-from Ship import Ship
+from ship import Ship
 class Player:
     score = 0
     def __init__(self, name):
         self.name = name
     
+    # fonction pour savoir si on peut placer le bateau
     def does_ship_fit(self, shipSize, direction, startPos): #startPos : A1,A2,A3,...
         cases_prises = []
         if direction == 'verticale':
@@ -19,7 +20,7 @@ class Player:
                 return False
         return True, cases_prises
 
-
+    
     def placeShip(self, ship):
         pass
    
