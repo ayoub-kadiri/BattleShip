@@ -1,4 +1,3 @@
-from player import Player
 import pygame
 class Ship:
     sousMarin_image = pygame.image.load('images/torpilleurImage.png')
