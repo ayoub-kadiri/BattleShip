@@ -66,8 +66,9 @@ while run:
                 if event.key == pygame.K_SPACE:
                     moi.rotateImage(key[-1], g1)
                 if event.key == pygame.K_RETURN:
+                    if  moi.can_place_ship(key[-1], moi.bateaux_ajoutes[key[-1]], game.flotte_carac[key[-1]][2], g1):
+                        moi.addShip(key[-1], moi.bateaux_ajoutes[key[-1]], game.flotte_carac[key[-1]][2], g1)
                     
-                    moi.addShip(key[-1], moi.bateaux_ajoutes[key[-1]], game.flotte_carac[key[-1]][2])
                 
             if event.type == pygame.KEYUP:
                 pressed = False
