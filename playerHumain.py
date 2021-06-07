@@ -43,7 +43,7 @@ class PlayerHumain:
                 cases_prises.append(chr(ord(startPos[0])+i)+startPos[1:])
         else:
             for i in range(shipSize):
-                cases_prises.append(startPos[0]+str(int(startPos[1])+i))
+                cases_prises.append(startPos[0]+str(int(startPos[1:])+i))
 
         for i in cases_prises:
             if i not in board.cases :
@@ -102,24 +102,23 @@ class PlayerHumain:
     def addShip(self, ship, pos, orientation, board):
         del Game.bateau_a_afficher[0]
         if ship == 'Torpilleur':
-            self.flotte.append(Ship('images/torpilleurImage.png', 2,pos,orientation , []))
+            Game.flotte_joueur.append(Ship('images/torpilleurImage.png', 2,pos,orientation , []))
             self.update_board(board, pos, 2, orientation)
         if ship == 'Destroyer':
-            self.flotte.append(Ship('images/destroyerImage.png', 3, pos, orientation, []))
+            Game.flotte_joueur.append(Ship('images/destroyerImage.png', 3, pos, orientation, []))
             self.update_board(board, pos, 3, orientation)
         if ship == 'Sous-Marin':
-            self.flotte.append(Ship('images/sousMarinImage.png', 3, pos, orientation, []))
+            Game.flotte_joueur.append(Ship('images/sousMarinImage.png', 3, pos, orientation, []))
             self.update_board(board, pos, 3, orientation)
         if ship == 'Croiseur':
-            self.flotte.append(Ship('images/croiseurImage.png', 4, pos, orientation, []))
+            Game.flotte_joueur.append(Ship('images/croiseurImage.png', 4, pos, orientation, []))
             self.update_board(board, pos, 4, orientation)
         if ship == 'Porte Avion':
-            self.flotte.append(Ship('images/porteAvionImage.png', 5, pos, orientation, []))
+            Game.flotte_joueur.append(Ship('images/porteAvionImage.png', 5, pos, orientation, []))
             self.update_board(board, pos, 5, orientation)
 
     def update_board(self, board, pos, size, orientation):
-        case = self.does_ship_fit_in_grid(size, orientation, pos, board)[1]
-        for i in case:
+        for i in pos:
             board.cases[i][2] = 'occupé'
 
     def can_place_ship(self, ship, pos, orientation, board):
@@ -127,5 +126,32 @@ class PlayerHumain:
         for i in case:
             if board.cases[i][2] != 'vide':
                 return False
-        return True
+        return True, case
             
+    
+
+    def collide(self, mousepos, rect):
+        if rect[0][0] <= mousepos[0] <= rect[1][0] and rect[0][1] <= mousepos[1] <= rect[1][1]:
+            return True
+        return False
+
+    def bateau_touche(self, case, board):
+        for ship in Game.flotte_bot:
+            for pos in ship.position:
+                if pos == case:
+                    ship.hit(case, board)
+                    return
+        board.cases[case][2] = 'rate'
+
+
+    def get_target(self, mousePos, board):
+        choose = False
+        for case, cord in board.cases.items() :
+            if self.collide(mousePos, cord[0]) and not board.cases[case][1] and not choose:
+                board.cases[case][1] = True
+                choose = True
+                self.bateau_touche(case, board)
+                return True
+        return False
+
+    
