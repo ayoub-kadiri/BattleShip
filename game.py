@@ -3,7 +3,8 @@ import pygame
 class Game:
 
     bateau_a_afficher = []
-    ships = []
+    flotte_joueur = []
+    flotte_bot = []
 
     def __init__(self, fenetre):
         self.fenetre = fenetre
@@ -19,7 +20,7 @@ class Game:
 
     flotte_carac = {
         'Torpilleur' : ['images/torpilleurImage.png', 2, 'verticale'],
-        'Destroyer' : ['images/destroyerImage.png', 2, 'verticale'],
+        'Destroyer' : ['images/destroyerImage.png', 3, 'verticale'],
         'Sous-Marin' : ['images/sousMarinImage.png', 3, 'verticale'],
         'Croiseur' : ['images/croiseurImage.png', 4, 'verticale'],
         'Porte Avion' : ['images/porteAvionImage.png', 5, 'verticale']
@@ -41,3 +42,27 @@ class Game:
 
     def drawInstruction(self):
         pass
+
+
+
+    def etat_flotte_joueur(self):
+        for ship in self.flotte_joueur :
+            for etat in ship.hits:
+                if etat == False :
+                    return True, 'bot'
+        return False, 'bot'
+    
+    def etat_flotte_bot(self):
+        for ship in self.flotte_bot :
+            for etat in ship.hits:
+                if etat == False :
+                    return True, 'joueur'
+        return False, 'joueur'
+
+    def flotte_non_coule(self):
+        if not self.etat_flotte_joueur()[0]:
+            return False, self.etat_flotte_joueur()[1]
+        elif not self.etat_flotte_bot()[0]:
+            return False, self.etat_flotte_bot()[1]
+
+        return True, 'tkt'
