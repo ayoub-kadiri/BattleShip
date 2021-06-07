@@ -14,7 +14,11 @@ class Board :
         self.fenetre = fenetre
         for i in range(10):
             for j in range(1,11):
-                cases[self.lettre[i]+str(j)] = [pygame.Rect((xStartPos+(j-1)*50, 53+i*50), (xStartPos+(j-1)*60+60,53+4+i*60+60 )), False, 'vide']
+                top_left = (xStartPos+(j-1)*50+2, 53+i*50+2)
+                bottom_right = (top_left[0]+50, top_left[1]+50)
+                cases[self.lettre[i]+str(j)] = [(top_left, bottom_right), False, 'vide']
+                
+
         
     
     def update(self, case):
@@ -28,3 +32,5 @@ class Board :
         
         self.fenetre.blit(self.lettreImage, (self.xStartPos-48,57))
         self.fenetre.blit(self.chiffresImages,(self.xStartPos,560))
+
+    
