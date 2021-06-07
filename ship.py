@@ -10,7 +10,7 @@ class Ship:
         self.orientation = orientation
         self.hits = hits
 
-        hits = [False for i in range(size)]
+        self.hits = [False for i in range(size)]
 
         
     
@@ -19,8 +19,12 @@ class Ship:
             return True
         return False
 
-    def is_hit(self, case):
-        pass
+    def hit(self, case, board):
+        if not self.coule():
+            self.hits[self.position.index(case)] = True
+            board.cases[case][2] = 'touche'
+        else:
+            pass
 
 
 
