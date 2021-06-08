@@ -39,11 +39,27 @@ class Game:
         self.fenetre.blit(self.destroyer, (60+self.sousMarin.get_width()+self.torpilleur.get_width(), 620))
         self.fenetre.blit(self.croiseur, (75,700))
         self.fenetre.blit(self.porteAvion, (75+self.croiseur.get_width(), 700))
-
+        
     def drawInstruction(self):
-        pass
-
-
+        pygame.draw.rect(self.fenetre, (47,79,79), ((311,56),(550,220)))
+        arial24 = pygame.font.SysFont("arial",25)
+        Jouer = arial24.render("                      Apprendre à jouer:    ",True,pygame.Color(0,255,255))
+        Cliquer = arial24.render("*Selectionner un bâteau pour le placer",True,pygame.Color(0,255,255))
+        Flèche = arial24.render("*Utiliser les flèches pour choisir sa position",True,pygame.Color(0,255,255))
+        Espace = arial24.render("*Appuyer sur 'espace' pour le tourner",True,pygame.Color(0,255,255))
+        Entrez = arial24.render("*Appuyer sur 'entrez' pour valider sa position",True,pygame.Color(0,255,255))
+        Cible = arial24.render("*Sélectionner ensuite la case où vous voulez",True,pygame.Color(0,255,255))
+        Cible2 = arial24.render("tirer après avoir placer vos bâteaux",True,pygame.Color(0,255,255))
+        self.fenetre.blit(Jouer, (318, 58))
+        self.fenetre.blit(Cliquer, (318, 88))
+        self.fenetre.blit(Flèche, (318, 118))
+        self.fenetre.blit(Espace, (318, 148))
+        self.fenetre.blit(Entrez, (318, 178))
+        self.fenetre.blit(Cible, (318, 208))
+        self.fenetre.blit(Cible2, (320, 230))
+        
+        level = pygame.image.load('images/level.png')
+        self.fenetre.blit(level, (260,300))
 
     def etat_flotte_joueur(self):
         for ship in self.flotte_joueur :
