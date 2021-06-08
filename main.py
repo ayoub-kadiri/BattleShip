@@ -13,6 +13,8 @@ g2 = Board(660, {}, fenetre)
 game = Game(fenetre)
 
 moi = PlayerHumain()
+arial24 = pygame.font.SysFont("arial",25)
+
 
 click = False
 premier_click = False
@@ -127,7 +129,9 @@ while run:
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     click = False
         else:
-            print('{} a gagné'.format(game.flotte_non_coule()[1]))
+            msg = '{} a gagné'.format(game.flotte_non_coule()[1])
+            message = arial24.render(msg, True, pygame.color(255,0,0))
+            fenetre.blit(message, (400,600))
             for i in game.flotte_bot:
                 img = pygame.image.load(i.image)
                 if i.orientation == 'horizontale':
