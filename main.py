@@ -13,8 +13,7 @@ g2 = Board(660, {}, fenetre)
 game = Game(fenetre)
 
 moi = PlayerHumain()
-bot = Bot('easy')
-bot.random_placement(g2)
+
 click = False
 premier_click = False
 def dessiner():
@@ -73,9 +72,21 @@ while run:
             if event.type == pygame.QUIT:
                 run = False
             if event.type == pygame.MOUSEBUTTONDOWN and not click :
-                premier_click = True
                 moi.choose_ship_to_place(pygame.mouse.get_pos(), g1, fenetre)
                 click = True
+
+                m_pos = pygame.mouse.get_pos()
+
+                if 276 <= m_pos[0] <= 904 and 385 <= m_pos[1] <= 472:
+                    premier_click = True
+                    bot = Bot('easy')
+                    bot.random_placement(g2)
+                
+                elif 276 <= m_pos[0] <= 904 and 488 <= m_pos[1] <= 573 :
+                    premier_click = True
+                    bot = Bot('medium')
+                    bot.random_placement(g2)
+                
                 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 click = False
@@ -123,7 +134,6 @@ while run:
                     fenetre.blit(pygame.transform.rotate(img, -90), (g2.cases[i.position[0]][0][0], g1.cases[i.position[0]][0][1]))
                 else:
                     fenetre.blit(img,(g2.cases[i.position[0]][0][0], g2.cases[i.position[0]][0][1])) 
-    
     
     pygame.display.flip()
 
