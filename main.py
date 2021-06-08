@@ -16,13 +16,15 @@ moi = PlayerHumain()
 bot = Bot('easy')
 bot.random_placement(g2)
 click = False
-
+premier_click = False
 def dessiner():
     fenetre.fill((0,0,0))
     g1.drawBoard()
     g2.drawBoard()
     game.drawFlotteEnnemie()
     game.drawFlotteJoueur()
+    if not premier_click :
+      game.drawInstruction()
     
     for i in game.flotte_joueur:
         img = pygame.image.load(i.image)
@@ -71,6 +73,7 @@ while run:
             if event.type == pygame.QUIT:
                 run = False
             if event.type == pygame.MOUSEBUTTONDOWN and not click :
+                premier_click = True
                 moi.choose_ship_to_place(pygame.mouse.get_pos(), g1, fenetre)
                 click = True
                 
