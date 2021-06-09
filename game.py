@@ -1,5 +1,6 @@
 from board import Board
 import pygame
+
 class Game:
 
     bateau_a_afficher = []
@@ -66,14 +67,14 @@ class Game:
             for etat in ship.hits:
                 if etat == False :
                     return True, 'bot'
-        return False, 'bot'
+        return False, 'perdu'
     
     def etat_flotte_bot(self):
         for ship in self.flotte_bot :
             for etat in ship.hits:
                 if etat == False :
                     return True, 'joueur'
-        return False, 'joueur'
+        return False, 'gagné'
 
     def flotte_non_coule(self):
         if not self.etat_flotte_joueur()[0]:
