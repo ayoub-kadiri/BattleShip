@@ -10,14 +10,16 @@ run = True
 clock = pygame.time.Clock()
 g1 = Board(60, {}, fenetre)
 g2 = Board(660, {}, fenetre)
+
 game = Game(fenetre)
 
 moi = PlayerHumain()
-arial24 = pygame.font.SysFont("arial",25)
-
 
 click = False
 premier_click = False
+
+arial25 = pygame.font.SysFont("arial",25)
+
 def dessiner():
     fenetre.fill((0,0,0))
     g1.drawBoard()
@@ -89,7 +91,6 @@ while run:
                     bot = Bot('medium')
                     bot.random_placement(g2)
                 
-                
             if event.type == pygame.MOUSEBUTTONDOWN:
                 click = False
             if event.type == pygame.KEYDOWN and len(game.bateau_a_afficher) == 1:
@@ -129,9 +130,11 @@ while run:
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     click = False
         else:
-            msg = '{} a gagné'.format(game.flotte_non_coule()[1])
-            message = arial24.render(msg, True, pygame.color(255,0,0))
-            fenetre.blit(message, (400,600))
+
+            msg = 'Tu as {} !'.format(game.flotte_non_coule()[1])
+            message = arial25.render(msg, True, pygame.Color(255,0,0))
+            pygame.draw.rect(fenetre, (47, 79,79), ((540, 340), (150, 50)))
+            fenetre.blit(message, (550,350))
             for i in game.flotte_bot:
                 img = pygame.image.load(i.image)
                 if i.orientation == 'horizontale':
